@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 09c6181c3a719c04987966a0c3053401
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - redTeam: {instanceID: 0}
+  - blueTeam: {instanceID: 0}
+  - chase: {instanceID: 0}
+  - idle: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
