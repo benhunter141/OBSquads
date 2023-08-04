@@ -1101,6 +1101,8 @@ MonoBehaviour:
   unitList: []
   teamAStart: {fileID: 1424444384}
   teamBStart: {fileID: 659827627}
+  blueUnits: []
+  redUnits: []
 --- !u!1 &1788401361
 GameObject:
   m_ObjectHideFlags: 0
@@ -1146,6 +1148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdownText: {fileID: 1641736141}
+  blueTeamTactics: {fileID: 11400000, guid: 31dcc476bf9dc964296f41c129cbcd77, type: 2}
+  redTeamTactics: {fileID: 11400000, guid: 31dcc476bf9dc964296f41c129cbcd77, type: 2}
 --- !u!81 &398942766602382657
 AudioListener:
   m_ObjectHideFlags: 0

@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d01c3eb02d3f7a488a5cdb1727feedf, type: 3}
   m_Name: SwordFighterData
   m_EditorClassIdentifier: 
+  healthPoints: 100
+  attackRange: 1.05
+  moveForce: 1

@@ -7,6 +7,8 @@ public class ReferenceHolder : MonoBehaviour
     public GameObject body, ring, triangle;
     public Animator animator;
     MeshRenderer bodyRenderer, shoulderRenderer, armRenderer, handRenderer, ringRenderer, triangleRenderer;
+    public TargetIndicator targetIndicator;
+    public Rigidbody rb;
     
 
     private void Awake()

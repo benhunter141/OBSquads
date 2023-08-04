@@ -8,6 +8,7 @@ public class UnitManager : MonoBehaviour
     public GameObject fighterPrefab;
     public List<BaseUnit> unitList;
     public GameObject teamAStart, teamBStart;
+    public List<BaseUnit> blueUnits, redUnits;
 
     private void Start()
     {
@@ -21,27 +22,15 @@ public class UnitManager : MonoBehaviour
         Tactics chase = ServiceLocator.Instance.soManager.chase;
         Tactics idle = ServiceLocator.Instance.soManager.idle;
 
-        var blueUnits = new List<GameObject>();
-        var redUnits = new List<GameObject>();
-
-        blueUnits.Add(Instantiate(fighterPrefab));
-        blueUnits.Add(Instantiate(fighterPrefab));
-        redUnits.Add(Instantiate(fighterPrefab));
-
-        var unitObjects = new List<GameObject>();
-        unitObjects.AddRange(blueUnits);
-        unitObjects.AddRange(redUnits);
-        
-        foreach(var uO in unitObjects)
-        {
-            unitList.Add(uO.GetComponent<BaseUnit>());
-        }
+        blueUnits.Add(Instantiate(fighterPrefab).GetComponent<BaseUnit>());
+        blueUnits.Add(Instantiate(fighterPrefab).GetComponent<BaseUnit>());
+        redUnits.Add(Instantiate(fighterPrefab).GetComponent<BaseUnit>());
 
         PlaceTeam(blueUnits, blue, teamAStart, chase);
         PlaceTeam(redUnits, red, teamBStart, idle);
     }
 
-    void PlaceTeam(List<GameObject> units, TeamData teamData, GameObject home, Tactics tactics)
+    void PlaceTeam(List<BaseUnit> units, TeamData teamData, GameObject home, Tactics tactics)
     {
         //Spacing
         float spacing = 1f;
@@ -50,16 +39,28 @@ public class UnitManager : MonoBehaviour
         //firstPos is furthest left unit
         for(int i = 0; i < units.Count; i++)
         {
-            BaseUnit unit = units[i].GetComponent<BaseUnit>();
+            BaseUnit unit = units[i];
             Vector3 position = new Vector3(homeLocation.x - firstPosX + spacing * i, 
                                             homeLocation.y, 
                                             homeLocation.z);
-            unit.transform.position = position;
-            unit.transform.rotation = home.transform.rotation;
-            unit.teamData = teamData;
-            unit.tactics = tactics;
+            InitializeUnit(unit, position, home.transform.rotation, teamData, tactics);
         }
         home.SetActive(false);
     }
 
+    void InitializeUnit(BaseUnit unit, Vector3 position, Quaternion rotation, TeamData teamData, Tactics tactics)
+    {
+        unit.transform.position = position;
+        unit.transform.rotation = rotation;
+        unit.teamData = teamData;
+        unit.tactics = tactics;
+    }
+
+    public List<BaseUnit> EnemyTeam(BaseUnit unit)
+    {
+        if (blueUnits.Contains(unit)) return redUnits;
+        if (redUnits.Contains(unit)) return blueUnits;
+        throw new ArgumentException();
+    }
+    
 }
