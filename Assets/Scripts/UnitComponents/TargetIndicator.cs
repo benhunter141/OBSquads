@@ -13,6 +13,7 @@ public class TargetIndicator : MonoBehaviour
 
     private void Update()
     {
+        //fix in place below ball:
         transform.position = transform.parent.position - new Vector3(0, 0.5f, 0);
         transform.rotation = Quaternion.identity;
 
@@ -25,10 +26,16 @@ public class TargetIndicator : MonoBehaviour
 
     void PointAtTarget()
     {
+        //should be flat-forward towards target and
+        //should be at same pos.y as parent
         if (!pointerAnchor.activeSelf) pointerAnchor.SetActive(true);
+
         Vector3 centre = transform.position;
         Vector3 displacement = target.transform.position - centre;
-        pointerAnchor.transform.rotation = Quaternion.LookRotation(displacement);
+        displacement.y = 0;
+        //make disaplcement flat
+
+        pointerAnchor.transform.rotation = Quaternion.LookRotation(displacement, Vector3.up);
     }
     public void SetTarget(BaseUnit _target)
     {
