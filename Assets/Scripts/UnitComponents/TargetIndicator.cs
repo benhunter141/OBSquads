@@ -8,7 +8,7 @@ public class TargetIndicator : MonoBehaviour
 
     //if no target, pointer is shut off
     [SerializeField]
-    GameObject pointerAnchor;
+    GameObject pointerAnchor, pointer;
     BaseUnit target;
 
     private void Update()
@@ -21,14 +21,14 @@ public class TargetIndicator : MonoBehaviour
         {
             PointAtTarget();
         }
-        else if (pointerAnchor.activeSelf) pointerAnchor.SetActive(false);
+        else if (pointer.activeSelf) pointer.SetActive(false);
     }
 
     void PointAtTarget()
     {
         //should be flat-forward towards target and
         //should be at same pos.y as parent
-        if (!pointerAnchor.activeSelf) pointerAnchor.SetActive(true);
+        if (!pointer.activeSelf) pointer.SetActive(true);
 
         Vector3 centre = transform.position;
         Vector3 displacement = target.transform.position - centre;

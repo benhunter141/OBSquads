@@ -4,29 +4,30 @@ using UnityEngine;
 
 public class ReferenceHolder : MonoBehaviour
 {
+    public BaseUnit unit;
     public GameObject body, ring, triangle;
     public Animator animator;
-    MeshRenderer bodyRenderer, shoulderRenderer, armRenderer, handRenderer, ringRenderer, triangleRenderer;
+    public MeshRenderer bodyRenderer, ringRenderer, triangleRenderer, weaponRenderer1, weaponRenderer2;
     public TargetIndicator targetIndicator;
     public Rigidbody rb;
-    
+    public StatusBar healthBar;
+    new public Collider collider;
 
-    private void Awake()
+    public List<Renderer> AllRenderers()
     {
-        CacheRenderers();
+        var renderers = new List<Renderer>();
+        renderers.Add(bodyRenderer);
+        renderers.Add(ringRenderer);
+        renderers.Add(triangleRenderer);
+        renderers.Add(weaponRenderer1);
+        renderers.Add(weaponRenderer2);
+        return renderers;
     }
 
     public void SetColors(Material primaryColor, Material accentColor)
     {
         SetPrimaryColor(primaryColor);
         SetAccentColor(accentColor);
-    }
-
-    void CacheRenderers()
-    {
-        bodyRenderer = body.GetComponent<MeshRenderer>();
-        ringRenderer = ring.GetComponent<MeshRenderer>();
-        triangleRenderer = triangle.GetComponent<MeshRenderer>();
     }
 
     void SetPrimaryColor(Material primaryColor)

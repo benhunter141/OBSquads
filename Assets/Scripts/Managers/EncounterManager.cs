@@ -6,25 +6,57 @@ using TMPro;
 public class EncounterManager : MonoBehaviour
 {
     public TextMeshProUGUI countdownText;
-    public Tactics blueTeamTactics, redTeamTactics;
+    public int countDownTime;
     private IEnumerator Start()
     {
-        yield return Countdown(3);
-        //units start with 'idle' tactics until Fight:
-        SetTacticsToChase();
+        yield return Countdown(countDownTime);
+        IssueOrders();
     }
 
-    public void SetTacticsToChase()
+    public void CheckForVictory()
     {
-        foreach(var unit in ServiceLocator.Instance.unitManager.redUnits)
+        Squad first = ServiceLocator.Instance.unitManager.firstSquad;
+        Squad second = ServiceLocator.Instance.unitManager.secondSquad;
+        bool firstDead = first.IsDead();
+        bool secondDead = second.IsDead();
+
+        if (firstDead && secondDead)
         {
-            unit.tactics = redTeamTactics;
+            DeclareDraw();
+        }
+        else if (firstDead)
+        {
+            DeclareVictoryFor(second);
+        }
+        else if (secondDead)
+        {
+            DeclareVictoryFor(first);
         }
 
-        foreach(var unit in ServiceLocator.Instance.unitManager.blueUnits)
+    }
+
+    void DeclareVictoryFor(Squad squad)
+    {
+        Debug.Log($"squad {squad.squadName} won");
+        foreach(var u in squad.units)
         {
-            unit.tactics = blueTeamTactics;
+            u.tactics = ServiceLocator.Instance.soManager.idle;
         }
+        countdownText.text = "Victory!";
+        StartCoroutine(FadeTextOverTime(countdownText, 5));
+    }
+
+    void DeclareDraw()
+    {
+        Debug.Log("draw!");
+    }
+
+    public void IssueOrders()
+    {
+        Squad first = ServiceLocator.Instance.unitManager.firstSquad;
+        Squad second = ServiceLocator.Instance.unitManager.secondSquad;
+        first.IssueOrders();
+        second.IssueOrders();
     }
 
     private IEnumerator Countdown(int seconds)

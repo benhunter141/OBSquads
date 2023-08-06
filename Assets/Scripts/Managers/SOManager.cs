@@ -5,5 +5,6 @@ using UnityEngine;
 public class SOManager : MonoBehaviour
 {
     public TeamData redTeam, blueTeam;
-    public Tactics chase, idle;
+    public Tactic chase, idle;
+    public Status ready, attacking, dead;
 }

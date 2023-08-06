@@ -19,6 +19,6 @@ public class ServiceLocator : MonoBehaviour
         Instance = this;
         unitManager = GetComponentInChildren<UnitManager>();
         soManager = GetComponentInChildren<SOManager>();
-        encounterManager = GetComponent<EncounterManager>();
+        encounterManager = GetComponentInChildren<EncounterManager>();
     }
 }
