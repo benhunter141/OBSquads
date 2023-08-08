@@ -29,7 +29,7 @@ public class Squad
         bool allDead = true;
         foreach(var u in units)
         {
-            if (!u.IsDead()) allDead = false;
+            if (!u.health.IsDead()) allDead = false;
         }
         if (allDead) Debug.Log("Squad is all dead");
         else Debug.Log("Squad is not all dead");

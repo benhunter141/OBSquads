@@ -25,8 +25,7 @@ public class UnitManager : MonoBehaviour
         blueUnits.Add(Instantiate(fighterPrefab).GetComponent<BaseUnit>());
         blueUnits.Add(Instantiate(fighterPrefab).GetComponent<BaseUnit>());
         blueUnits.Add(Instantiate(fighterPrefab).GetComponent<BaseUnit>());
-        blueUnits.Add(Instantiate(fighterPrefab).GetComponent<BaseUnit>());
-        blueUnits.Add(Instantiate(fighterPrefab).GetComponent<BaseUnit>());
+
         firstSquad = new Squad(blue, blueUnits, chase);
 
         var redUnits = new List<BaseUnit>();
@@ -68,7 +67,7 @@ public class UnitManager : MonoBehaviour
         unit.tactics = tactics;
     }
 
-    public List<BaseUnit> EnemyTeam(BaseUnit unit)
+    public List<BaseUnit> EnemyTeamOf(BaseUnit unit)
     {
         if (firstSquad.units.Contains(unit)) return secondSquad.units;
         if (secondSquad.units.Contains(unit)) return firstSquad.units;
@@ -77,10 +76,10 @@ public class UnitManager : MonoBehaviour
 
     public void RetargetDeadUnit(BaseUnit unit)
     {
-        var otherTeam = EnemyTeam(unit);
+        var otherTeam = EnemyTeamOf(unit);
         foreach(var u in otherTeam)
         {
-            if (u.target == unit) u.GetTarget();
+            if (u.targeting.target == unit) u.targeting.GetTarget();
         }
     }
     
@@ -89,7 +88,7 @@ public class UnitManager : MonoBehaviour
         bool allDead = true;
         foreach(var u in team)
         {
-            if (!u.IsDead()) allDead = false;
+            if (!u.health.IsDead()) allDead = false;
         }
         return allDead;
     }

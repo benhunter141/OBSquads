@@ -2,20 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetIndicator : MonoBehaviour
+public class TargetIndicator
 {
-    //points triangle at target, updates every update
-
-    //if no target, pointer is shut off
-    [SerializeField]
-    GameObject pointerAnchor, pointer;
+    BaseUnit unit;
+    GameObject ring, pointerAnchor, pointer;
     BaseUnit target;
 
-    private void Update()
+    public TargetIndicator(BaseUnit _unit, GameObject _ring, GameObject _pointerAnchor, GameObject _pointer)
     {
-        //fix in place below ball:
-        transform.position = transform.parent.position - new Vector3(0, 0.5f, 0);
-        transform.rotation = Quaternion.identity;
+        unit = _unit;
+        ring = _ring;
+        pointerAnchor = _pointerAnchor;
+        pointer = _pointer;
+    }
+
+    public void Update() //this isn't a monobehaviour idiot, you gotta call it from unit (or somewhere)
+    {
+        //fix (ring)in place below ball:
+        ring.transform.position = unit.transform.position - new Vector3(0, 0.5f, 0);
+        ring.transform.rotation = Quaternion.identity;
 
         if (HasTarget())
         {
@@ -30,7 +35,7 @@ public class TargetIndicator : MonoBehaviour
         //should be at same pos.y as parent
         if (!pointer.activeSelf) pointer.SetActive(true);
 
-        Vector3 centre = transform.position;
+        Vector3 centre = ring.transform.position;
         Vector3 displacement = target.transform.position - centre;
         displacement.y = 0;
         //make disaplcement flat
@@ -42,7 +47,7 @@ public class TargetIndicator : MonoBehaviour
         target = _target;
     }
 
-    public bool HasTarget() => target is not null && !target.IsDead();
+    public bool HasTarget() => target is not null && !target.health.IsDead();
 
     
 }

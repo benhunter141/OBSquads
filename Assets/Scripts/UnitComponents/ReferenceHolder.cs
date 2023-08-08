@@ -5,12 +5,11 @@ using UnityEngine;
 public class ReferenceHolder : MonoBehaviour
 {
     public BaseUnit unit;
-    public GameObject body, ring, triangle;
+    public GameObject body, ring, pointerAnchor, pointer, healthBarObject;
     public Animator animator;
     public MeshRenderer bodyRenderer, ringRenderer, triangleRenderer, weaponRenderer1, weaponRenderer2;
     public TargetIndicator targetIndicator;
     public Rigidbody rb;
-    public StatusBar healthBar;
     new public Collider collider;
 
     public List<Renderer> AllRenderers()
