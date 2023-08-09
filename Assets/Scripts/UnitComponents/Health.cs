@@ -37,12 +37,16 @@ public class Health
         unit.status = ServiceLocator.Instance.soManager.dead;
         ServiceLocator.Instance.unitManager.RetargetDeadUnit(unit);
         var renderers = unit.refHolder.AllRenderers();
+        var canvasRenderers = unit.refHolder.AllCanvasRenderers();
         float fadeTime = 2;
 
         unit.StartCoroutine(FadeOutRenderers(renderers, fadeTime));
+        unit.StartCoroutine(FadeOutRenderers(canvasRenderers, fadeTime));
+
         unit.StartCoroutine(DisableUnit(fadeTime));
         ServiceLocator.Instance.encounterManager.CheckForVictory();
     }
+
 
     IEnumerator FadeOutRenderers(List<Renderer> renderers, float fadeTime)
     {
@@ -56,6 +60,20 @@ public class Health
                 Color color = r.material.color;
                 color.a = alpha;
                 r.material.color = color; //won't this same material fade on other units?
+            }
+            yield return Helpers.EndOfFrame;
+        }
+    }
+    IEnumerator FadeOutRenderers(List<CanvasRenderer> renderers, float fadeTime)
+    {
+        int frames = (int)(fadeTime * 30);
+        float fraction = 1f / frames;
+        for (int i = 0; i < frames; i++)
+        {
+            float alpha = 1f - fraction * i;
+            foreach (var r in renderers)
+            {
+                r.SetAlpha(alpha);
             }
             yield return Helpers.EndOfFrame;
         }

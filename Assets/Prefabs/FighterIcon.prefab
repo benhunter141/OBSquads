@@ -457,8 +457,7 @@ MonoBehaviour:
   bodyRenderer: {fileID: 3498369680969709380}
   ringRenderer: {fileID: 5004268118132434697}
   triangleRenderer: {fileID: 272457928184875284}
-  weaponRenderer1: {fileID: 0}
-  weaponRenderer2: {fileID: 0}
+  iconSprite: {fileID: 8698487037357780931}
   rb: {fileID: 7187867073446732260}
   collider: {fileID: 4103748396947915185}
 --- !u!95 &8501634554438959382

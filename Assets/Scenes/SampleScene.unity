@@ -1365,7 +1365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a45bee3ed79f143be8eac6a1d094a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraView: 0
+  cameraView: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
