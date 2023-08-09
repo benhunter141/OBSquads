@@ -45,7 +45,7 @@ public class BaseUnit : MonoBehaviour
         }
     }
 
-    public void AttemptMove()
+    public void AttemptMove() //code below attempts to move to attack location (bad). We want to move depending on tactics
     {
         if (status.canMove &&
             !targeting.InRangeOfTarget())

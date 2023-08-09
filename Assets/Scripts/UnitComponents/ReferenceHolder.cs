@@ -7,7 +7,7 @@ public class ReferenceHolder : MonoBehaviour
     public BaseUnit unit;
     public GameObject body, ring, pointerAnchor, pointer, healthBarObject;
     public Animator animator;
-    public MeshRenderer bodyRenderer, ringRenderer, triangleRenderer, weaponRenderer1, weaponRenderer2;
+    public MeshRenderer bodyRenderer, ringRenderer, triangleRenderer;
     public TargetIndicator targetIndicator;
     public Rigidbody rb;
     new public Collider collider;
@@ -18,8 +18,6 @@ public class ReferenceHolder : MonoBehaviour
         renderers.Add(bodyRenderer);
         renderers.Add(ringRenderer);
         renderers.Add(triangleRenderer);
-        renderers.Add(weaponRenderer1);
-        renderers.Add(weaponRenderer2);
         return renderers;
     }
 

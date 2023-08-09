@@ -11,4 +11,5 @@ public class UnitData : ScriptableObject
     public int damage;
     public float timeTilHit;
     public float attackPeriod;
+    public Sprite icon;
 }

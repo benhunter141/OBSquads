@@ -18,3 +18,4 @@ MonoBehaviour:
   damage: 13
   timeTilHit: 0.17
   attackPeriod: 0.5
+  icon: {fileID: 21300000, guid: 579e05e5be42b154c9241b8e53fd4db6, type: 3}

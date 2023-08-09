@@ -27,13 +27,14 @@ public class Targeting
                 target = nme;
             }
         }
-        if (target is not null)
+        if (target is null)
         {
-            unit.targetIndicator.SetTarget(target);
-            return target;
+            Debug.Log($"Target not found. Enemy team count:{EnemyTeam().Count}");
+            throw new System.Exception();
         }
-        Debug.Log($"Target not found. Enemy team count:{EnemyTeam().Count}");
-        throw new System.Exception();
+        
+        unit.targetIndicator.SetTarget(target);
+        return target;
     }
 
     public Vector3 AttackLocation()
