@@ -7,7 +7,9 @@ public class MeshMaker : MonoBehaviour
     public Material grass;
     private void Start()
     {
-        MakeMesh(10,10);
+        int width = 5;
+        int length = 5;
+        MakeMesh(width, length);
     }
     
     void MakeMesh(int width, int length)
@@ -18,16 +20,28 @@ public class MeshMaker : MonoBehaviour
 
         var heights = RandomHeights(width, length);
         var cells = CreateMeshCells(heights);
-        //list of verts (this will only do flats for now)
+
         var verts = MakeCellVerts(cells);
-        //list of tris
+        var uv = MakeUVMap(verts, width, length);
         var tris = MakeCellTris(cells);
+        var tangents = MakeTangents(verts);
 
         filter.mesh.vertices = verts.ToArray();
         filter.mesh.triangles = tris.ToArray();
-        //filter.mesh.RecalculateNormals();
+        filter.mesh.uv = uv.ToArray();
+        filter.mesh.tangents = tangents.ToArray();
+        filter.mesh.RecalculateNormals();
         renderer.material = grass;
     }
+
+    List<Vector4> MakeTangents(List<Vector3> verts)
+    {
+        var tangents = new List<Vector4>();
+        foreach (var v in verts)
+            tangents.Add(new Vector4(1, 0, 0, -1));
+        return tangents;
+    }
+
     List<int> MakeCellTris(List<MeshCell> cells)
     {
         var tris = new List<int>();
@@ -40,7 +54,18 @@ public class MeshMaker : MonoBehaviour
         }
         return tris;
     }
-    List<Vector3> MakeCellVerts(List<MeshCell> cells)
+
+    List<Vector2> MakeUVMap(List<Vector3> verts, int width, int length)
+    {
+        var uvs = new List<Vector2>();
+        foreach(var v in verts)
+        {
+            var uv = new Vector2(v.x / width, v.z / length);
+            uvs.Add(uv);
+        }
+        return uvs;
+    }
+    List<Vector3> MakeCellVerts(List<MeshCell> cells) // first vert should be at 0,0,0
     {
         var verts = new List<Vector3>();
         for(int i = 0; i < cells.Count; i++)
@@ -49,6 +74,9 @@ public class MeshMaker : MonoBehaviour
             var corners = c.Corners();
             verts.AddRange(corners);
         }
+        Debug.Log("first vert at: ");
+        Helpers.Print(verts[0]);
+        Debug.Log("should be 3 x zero");
         return verts;
     }
 

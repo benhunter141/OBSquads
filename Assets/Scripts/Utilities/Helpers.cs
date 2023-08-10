@@ -11,6 +11,10 @@ public static class Helpers
     static WaitForSeconds _shortDelay = new WaitForSeconds(0.2f);
     static WaitForSeconds _oneSecond = new WaitForSeconds(1f);
 
+    public static void Print(Vector3 v3)
+    {
+        Debug.Log($"V3:{v3.x}, {v3.y}, {v3.z}");
+    }
     public static WaitForSeconds OneSecond
     {
         get { return _oneSecond; }
