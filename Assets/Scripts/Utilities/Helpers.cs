@@ -11,6 +11,14 @@ public static class Helpers
     static WaitForSeconds _shortDelay = new WaitForSeconds(0.2f);
     static WaitForSeconds _oneSecond = new WaitForSeconds(1f);
 
+    public static void Print(List<int> ints)
+    {
+        Debug.Log("Printing list of count " + ints.Count);
+        foreach(var i in ints)
+        {
+            Debug.Log($"{i}, ");
+        }
+    }
     public static void Print(Vector3 v3)
     {
         Debug.Log($"V3:{v3.x}, {v3.y}, {v3.z}");
@@ -89,5 +97,12 @@ public static class Helpers
 
     public static Vector3 FlatForward(Vector3 forward) => new Vector3(forward.x, 0, forward.z);
     
-
+    public static float AverageOf(List<int> nums)
+    {
+        float sum = 0;
+        foreach (var n in nums)
+            sum += n;
+        sum /= nums.Count;
+        return sum;
+    }
 }

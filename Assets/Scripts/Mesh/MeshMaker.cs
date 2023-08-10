@@ -9,21 +9,32 @@ public class MeshMaker : MonoBehaviour
     {
         int width = 5;
         int length = 5;
-        MakeMesh(width, length);
+        float cellSize = 1;
+        MakeMesh(width, length, cellSize);
+
+        MeshRenderer renderer = gameObject.AddComponent<MeshRenderer>();
+        renderer.material = grass;
+
+        gameObject.AddComponent<MeshCollider>();
     }
-    
-    void MakeMesh(int width, int length)
+
+
+
+
+
+    MeshFilter MakeMesh(int width, int length, float cellSize)
     {
         MeshFilter filter = gameObject.AddComponent<MeshFilter>();
-        MeshRenderer renderer = gameObject.AddComponent<MeshRenderer>();
-        
 
         var heights = RandomHeights(width, length);
-        var cells = CreateMeshCells(heights);
+        var verts = SmoothedVerts(heights, cellSize);
+        var tris = MakeCellTris(width, length);
 
-        var verts = MakeCellVerts(cells);
+
+        //var cellGrid = CreateMeshCells(heights); //change to include neighbors
+        //var verts = MakeCellVerts(cellGrid); //change to not make duplicates
+        //var tris = MakeCellTris(cellGrid); //change to match non-duplicate vert list
         var uv = MakeUVMap(verts, width, length);
-        var tris = MakeCellTris(cells);
         var tangents = MakeTangents(verts);
 
         filter.mesh.vertices = verts.ToArray();
@@ -31,7 +42,32 @@ public class MeshMaker : MonoBehaviour
         filter.mesh.uv = uv.ToArray();
         filter.mesh.tangents = tangents.ToArray();
         filter.mesh.RecalculateNormals();
-        renderer.material = grass;
+
+        return filter;
+    }
+
+    List<Vector3> SmoothedVerts(List<List<int>> heights, float cellSize)
+    {
+        var verts = new List<Vector3>();
+        for(int i = 0; i < heights.Count + 1; i++)
+        {
+            for(int j = 0; j < heights[0].Count + 1; j++)
+            {
+                var neighborHeights = new List<int>();
+                if (i > 0 && j > 0) 
+                    neighborHeights.Add(heights[i - 1][j - 1]);
+                if (i < heights.Count && j > 0)
+                    neighborHeights.Add(heights[i][j - 1]);
+                if (i < heights.Count && j < heights[0].Count)
+                    neighborHeights.Add(heights[i][j]);
+                if (i > 0 && j < heights[0].Count) 
+                    neighborHeights.Add(heights[i - 1][j]);
+                float averageHeight = Helpers.AverageOf(neighborHeights);
+                Vector3 position = new Vector3(cellSize * i, averageHeight, cellSize * j);
+                verts.Add(position);
+            }
+        }
+        return verts;
     }
 
     List<Vector4> MakeTangents(List<Vector3> verts)
@@ -42,15 +78,23 @@ public class MeshMaker : MonoBehaviour
         return tangents;
     }
 
-    List<int> MakeCellTris(List<MeshCell> cells)
+    List<int> MakeCellTris(int width, int length)
     {
         var tris = new List<int>();
-        for (int i = 0; i < cells.Count; i++)
+        for(int i = 0; i < width; i++)
         {
-            //var c = cells[i];
-            int offset = 4 * i;
-            tris.AddRange(new List<int> { 0 + offset, 2 + offset, 1 + offset,
-                                 0 + offset, 3 + offset, 2 + offset});
+            int rowStart = i * (length + 1);
+            int nextRowStart = (i + 1) * (length + 1);
+            Debug.Log($"rowStart:{rowStart}, nextRowStart:{nextRowStart}");
+            for (int j = 0; j < length; j++)
+            {
+                var cellTris = new List<int>
+                {
+                    rowStart + j, rowStart + j + 1, nextRowStart + j + 1,
+                    rowStart + j, nextRowStart + j + 1, nextRowStart + j
+                };
+                tris.AddRange(cellTris);
+            }
         }
         return tris;
     }
@@ -65,41 +109,10 @@ public class MeshMaker : MonoBehaviour
         }
         return uvs;
     }
-    List<Vector3> MakeCellVerts(List<MeshCell> cells) // first vert should be at 0,0,0
-    {
-        var verts = new List<Vector3>();
-        for(int i = 0; i < cells.Count; i++)
-        {
-            var c = cells[i];
-            var corners = c.Corners();
-            verts.AddRange(corners);
-        }
-        Debug.Log("first vert at: ");
-        Helpers.Print(verts[0]);
-        Debug.Log("should be 3 x zero");
-        return verts;
-    }
-
-    List<MeshCell> CreateMeshCells(List<List<int>> heights)
-    {
-        float size = 1;
-        var cells = new List<MeshCell>();
-        for(int i = 0; i < heights.Count; i++) //i represents the x direction
-        {
-            for(int j = 0; j < heights[0].Count; j++) //j represents the z direction
-            {
-                //origin is 0,0 and corner of mesh
-                Vector3 cellCentre = new Vector3(i * size + size / 2, heights[i][j], j * size + size / 2);
-                var meshCell = new MeshCell(i, j, heights[i][j], size, cellCentre);
-                cells.Add(meshCell);
-            }
-        }
-        return cells;
-    }
 
     List<List<int>> RandomHeights(int width, int length)
     {
-        //start by giving a grid of zeros with a single raised square at (1,1)
+        //start by giving a grid of zeros with a few raised squares around (1,1)
         var grid = new List<List<int>>();
         for(int i = 0; i < width; i++)
         {
@@ -111,6 +124,10 @@ public class MeshMaker : MonoBehaviour
             }
         }
         grid[1][1] = 1;
+        grid[2][3] = 3;
+        grid[1][2] = 2;
+        grid[1][3] = 6;
+        grid[3][0] = 5;
         return grid;
     }
 }
