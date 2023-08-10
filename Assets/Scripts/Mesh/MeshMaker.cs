@@ -14,7 +14,7 @@ public class MeshMaker : MonoBehaviour
     {
         MeshFilter filter = gameObject.AddComponent<MeshFilter>();
         MeshRenderer renderer = gameObject.AddComponent<MeshRenderer>();
-        renderer.material = grass;
+        
 
         var heights = RandomHeights(width, length);
         var cells = CreateMeshCells(heights);
@@ -25,6 +25,8 @@ public class MeshMaker : MonoBehaviour
 
         filter.mesh.vertices = verts.ToArray();
         filter.mesh.triangles = tris.ToArray();
+        //filter.mesh.RecalculateNormals();
+        renderer.material = grass;
     }
     List<int> MakeCellTris(List<MeshCell> cells)
     {

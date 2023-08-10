@@ -243,7 +243,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &554925530
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -286,7 +286,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8cb44643c555b49479237edd3d5f0926, type: 2}
+  - {fileID: 2100000, guid: da3c25ba659e86f4b8ae7b12062a08b0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -325,7 +325,7 @@ Transform:
   m_GameObject: {fileID: 554925529}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 5.03, y: 0, z: -7.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -552,7 +552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bc09882c17cc2d4b90f1eebb4d51287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grass: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  grass: {fileID: 2100000, guid: da3c25ba659e86f4b8ae7b12062a08b0, type: 2}
 --- !u!1 &999853105
 GameObject:
   m_ObjectHideFlags: 0
