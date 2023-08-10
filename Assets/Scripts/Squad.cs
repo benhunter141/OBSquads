@@ -31,8 +31,8 @@ public class Squad
         {
             if (!u.health.IsDead()) allDead = false;
         }
-        if (allDead) Debug.Log("Squad is all dead");
-        else Debug.Log("Squad is not all dead");
+        //if (allDead) Debug.Log("Squad is all dead");
+        //else Debug.Log("Squad is not all dead");
         return allDead;
     }
 
