@@ -4,18 +4,25 @@ using UnityEngine;
 
 public class BaseUnit : MonoBehaviour
 {
+    //SO data
     public UnitData data;
     public TeamData teamData;
     public ReferenceHolder refHolder;
     public Tactic tactics;
     public Status status;
 
+    //functions
     public Movement movement;
     public Targeting targeting;
     public Attacking attacking;
     public Health health;
+    public Order order;
+
+    //displays
     public StatusBar healthBar;
     public TargetIndicator targetIndicator;
+    public OrderDisplay orderDisplay;
+    public SelectionDisplay selectionDisplay;
 
     private void Start() //has to be after Awake so referenceHolder is set up
     {
@@ -25,16 +32,17 @@ public class BaseUnit : MonoBehaviour
         attacking = new Attacking(this);
         health = new Health(this);
         healthBar = new StatusBar(refHolder.healthBarObject);
-        targetIndicator = new TargetIndicator(this, refHolder.ring, refHolder.pointerAnchor, refHolder.pointer);
+        targetIndicator = new TargetIndicator(this, refHolder.everythingAnchor, refHolder.pointerAnchor, refHolder.pointer);
+        orderDisplay = new OrderDisplay(this, refHolder.orderDisplayAnchor);
+        selectionDisplay = new SelectionDisplay(this, refHolder.selectionDisplayRing);
 
         SetTeamColor(teamData);
-        tactics = ServiceLocator.Instance.soManager.idle;
     }
 
      void Update()
     {
         tactics.Perform(this);
-        targetIndicator.Update();
+        targetIndicator.Update(); //necessary to keep ring in place, move target arrow indicator
     }
 
     public void AttemptRetarget()

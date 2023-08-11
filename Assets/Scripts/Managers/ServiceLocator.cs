@@ -9,7 +9,9 @@ public class ServiceLocator : MonoBehaviour
     public SOManager soManager { get; private set; }
     public EncounterManager encounterManager { get; private set; }
     public CameraController cameraController { get; private set; }
-    
+    public InputManager inputManager { get; private set; }
+    public ColorManager colorManager { get; private set; }
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -22,5 +24,7 @@ public class ServiceLocator : MonoBehaviour
         soManager = GetComponentInChildren<SOManager>();
         encounterManager = GetComponentInChildren<EncounterManager>();
         cameraController = GetComponentInChildren<CameraController>();
+        inputManager = GetComponentInChildren<InputManager>();
+        colorManager = GetComponentInChildren<ColorManager>();
     }
 }

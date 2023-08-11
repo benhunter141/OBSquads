@@ -5,7 +5,7 @@ using UnityEngine;
 public class ReferenceHolder : MonoBehaviour
 {
     public BaseUnit unit;
-    public GameObject body, ring, pointerAnchor, pointer, healthBarObject;
+    public GameObject body, ring, pointerAnchor, pointer, healthBarObject, orderDisplayAnchor, selectionDisplayRing, everythingAnchor;
     public Animator animator;
     public MeshRenderer bodyRenderer, ringRenderer, triangleRenderer;
     public CanvasRenderer iconSprite;

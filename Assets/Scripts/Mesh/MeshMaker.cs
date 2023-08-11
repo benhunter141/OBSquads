@@ -123,11 +123,14 @@ public class MeshMaker : MonoBehaviour
                 row.Add(0);
             }
         }
-        grid[1][1] = 1;
-        grid[2][3] = 3;
-        grid[1][2] = 2;
-        grid[1][3] = 6;
-        grid[3][0] = 5;
+        for(int i = 0; i < grid.Count; i++)
+        {
+            for(int j = 0; j < grid[i].Count; j++)
+            {
+                if (i == 0) grid[i][j] = 3;
+                else if (i == 1) grid[i][j] = 2;
+            }
+        }
         return grid;
     }
 }
