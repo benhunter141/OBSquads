@@ -10,19 +10,19 @@ public class OrderDisplay
     {
         unit = u;
         anchor = _anchor;
+        anchor.SetActive(false);
     }
 
     public void Display(Order order)
     {
+        //can flatten displacement::
+        //for bumps later...?
+        anchor.SetActive(true);
         anchor.transform.rotation = Quaternion.LookRotation(order.displacement, Vector3.up);
 
         Vector3 scale = anchor.transform.localScale;
         scale.z = order.displacement.magnitude;
         anchor.transform.localScale = scale;
         Debug.Log("Order display anchor is: ", anchor);
-
-        //better: arrow goes exactly to position
-
-        //better: arrow is clamped between 0.5 and 3 units representing min/max power
     }
 }

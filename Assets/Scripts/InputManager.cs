@@ -27,6 +27,9 @@ public class InputManager : MonoBehaviour
         }
         else if (activeSelection is not null)
         {
+            //this code should be elsewhere
+            //maybe OrderManager
+            
             if (click is null) Debug.Log("click is null");
             Vector3 displacement = click.location - activeSelection.transform.position + new Vector3(0,0.5f,0);
             Debug.Log($"click location y is: {click.location.y} while active selection y is: {activeSelection.transform.position.y}");
