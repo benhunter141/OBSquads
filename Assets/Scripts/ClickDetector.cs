@@ -10,16 +10,26 @@ public class ClickDetector : MonoBehaviour , IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Vector3 p = Camera.main.ScreenToWorldPoint(eventData.position);
+        Camera cam = ServiceLocator.Instance.cameraController.cam;
+        RaycastHit hit;
+        Ray ray = cam.ScreenPointToRay(eventData.position);
+
         Click click;
-        if(isUnit)
+        if (Physics.Raycast(ray, out hit))
         {
-            click = new Click(unit, p);
+            Transform objectHit = hit.transform;
+            Vector3 position = hit.point;
+            if(isUnit)
+            {
+                click = new Click(unit, position);
+            }
+            else
+            {
+                click = new Click(position);
+            }
+            
         }
-        else //terrain
-        {
-            click = new Click(p);
-        }
+        else throw new System.Exception();
         ServiceLocator.Instance.inputManager.ReceiveClick(click);
     }
 
@@ -34,7 +44,6 @@ public class ClickDetector : MonoBehaviour , IPointerDownHandler
         {
             isUnit = false;
         }
-
     }
 
 

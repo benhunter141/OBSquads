@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public CameraView cameraView;
-    Camera cam;
+    public Camera cam;
 
     private void Start()
     {
