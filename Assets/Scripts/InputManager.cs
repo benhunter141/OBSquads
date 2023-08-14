@@ -31,7 +31,12 @@ public class InputManager : MonoBehaviour
             //maybe OrderManager
             
             if (click is null) Debug.Log("click is null");
-            Vector3 displacement = click.location - activeSelection.transform.position + new Vector3(0,0.5f,0);
+            if (click.unit is not null && click.unit == activeSelection)
+            {
+                //clicked self, should leave order as is, leave activeSelection as is
+                return;
+            }
+            Vector3 displacement = click.location - activeSelection.transform.position;
             Debug.Log($"click location y is: {click.location.y} while active selection y is: {activeSelection.transform.position.y}");
             Debug.Log("should be sending an order with d magnitude: " + displacement.magnitude);
             Order order = new Order(activeSelection, displacement);

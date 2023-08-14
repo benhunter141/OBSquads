@@ -10,6 +10,8 @@ public class Order
     {
         unit = u;
         displacement = d;
+        //flatten displacement
+        displacement.y = 0;
     }
 
     public void DisplayOrder()

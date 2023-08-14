@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public CameraView cameraView;
     public Camera cam;
 
     private void Start()
@@ -12,19 +11,8 @@ public class CameraController : MonoBehaviour
         cam = GetComponent<Camera>();
     }
 
-    private void Update()
-    {
-        if (cam.orthographic == false && cameraView == CameraView.TopDown)
-        {
-            SetCameraToTopDown();
-        }
-        else if (cam.orthographic == true && cameraView == CameraView.IsoMetric)
-        {
-            SetCameraToIsoMetric();
-        }
-    }
 
-    void SetCameraToTopDown()
+    public void SetCameraToTopDown()
     {
         Vector3 position = new Vector3(0, 15, 0);
         Quaternion orientation = Quaternion.LookRotation(Vector3.down, Vector3.forward);
@@ -33,7 +21,7 @@ public class CameraController : MonoBehaviour
         cam.orthographic = true;
     }
 
-    void SetCameraToIsoMetric()
+    public void SetCameraToIsoMetric()
     {
         Vector3 position = new Vector3(9, 4, 0);
         Quaternion orientation = Quaternion.Euler(new Vector3(20, -90, 0));
@@ -43,7 +31,4 @@ public class CameraController : MonoBehaviour
     }
 }
 
-public enum CameraView
-{   TopDown,
-    IsoMetric}
 
