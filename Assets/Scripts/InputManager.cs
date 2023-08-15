@@ -37,9 +37,15 @@ public class InputManager : MonoBehaviour
                 return;
             }
             Vector3 displacement = click.location - activeSelection.transform.position;
-            Debug.Log($"click location y is: {click.location.y} while active selection y is: {activeSelection.transform.position.y}");
-            Debug.Log("should be sending an order with d magnitude: " + displacement.magnitude);
             Order order = new Order(activeSelection, displacement);
+
+
+            //if (order is null) Debug.Log("Order is null");
+            //if (ServiceLocator.Instance is null) Debug.Log("Service Locator is null");
+            //if (ServiceLocator.Instance.stopGoManager is null) Debug.Log("SGManager is null");
+            ServiceLocator.Instance.stopGoManager.AddToOrders(order);
+            //Debug.Log("added to orders");
+            ServiceLocator.Instance.stopGoManager.RemoveFromOrders(activeSelection.order);
             activeSelection.order = order;
             order.DisplayOrder();
             activeSelection.selectionDisplay.TurnOff();

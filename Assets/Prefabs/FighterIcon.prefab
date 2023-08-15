@@ -520,7 +520,8 @@ MonoBehaviour:
   pointer: {fileID: 8797544063791260340}
   healthBarObject: {fileID: 8136292053247924729}
   orderDisplayAnchor: {fileID: 2990441335701159999}
-  selectionDisplayRing: {fileID: 0}
+  selectionDisplayRing: {fileID: 218511833265790752}
+  everythingAnchor: {fileID: 541072099970964473}
   animator: {fileID: 8501634554438959382}
   bodyRenderer: {fileID: 3498369680969709380}
   ringRenderer: {fileID: 5004268118132434697}
@@ -558,8 +559,8 @@ Rigidbody:
   m_GameObject: {fileID: 6042425795345066450}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0.2
-  m_AngularDrag: 0.05
+  m_Drag: 0.1
+  m_AngularDrag: 1.2
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -628,7 +629,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7141761651412851314}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 4e66f9462879ecc4389c3bcc8f8c54ee, type: 2}
 --- !u!23 &9062698358563548796
 MeshRenderer:
   m_ObjectHideFlags: 0

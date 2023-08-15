@@ -11,6 +11,7 @@ public class ServiceLocator : MonoBehaviour
     public CameraController cameraController { get; private set; }
     public InputManager inputManager { get; private set; }
     public ColorManager colorManager { get; private set; }
+    public StopGoManager stopGoManager { get; private set; }
 
     private void Awake()
     {
@@ -26,5 +27,6 @@ public class ServiceLocator : MonoBehaviour
         cameraController = GetComponentInChildren<CameraController>();
         inputManager = GetComponentInChildren<InputManager>();
         colorManager = GetComponentInChildren<ColorManager>();
+        stopGoManager = GetComponentInChildren<StopGoManager>();
     }
 }

@@ -17,6 +17,7 @@ public class BaseUnit : MonoBehaviour
     public Attacking attacking;
     public Health health;
     public Order order;
+    public LowVelocityStopper lowVelocityStopper;
 
     //displays
     public StatusBar healthBar;
@@ -35,6 +36,7 @@ public class BaseUnit : MonoBehaviour
         targetIndicator = new TargetIndicator(this, refHolder.everythingAnchor, refHolder.pointerAnchor, refHolder.pointer);
         orderDisplay = new OrderDisplay(this, refHolder.orderDisplayAnchor);
         selectionDisplay = new SelectionDisplay(this, refHolder.selectionDisplayRing);
+        lowVelocityStopper = new LowVelocityStopper(this, refHolder.rb, data.lowVelocityThreshold, data.lowVelocityStopTime);
 
         SetTeamColor(teamData);
     }
@@ -43,6 +45,7 @@ public class BaseUnit : MonoBehaviour
     {
         tactics.Perform(this);
         targetIndicator.Update(); //necessary to keep ring in place, move target arrow indicator
+        lowVelocityStopper.StopIfLowVelocity();
     }
 
     public void AttemptRetarget()

@@ -23,6 +23,10 @@ public class OrderDisplay
         Vector3 scale = anchor.transform.localScale;
         scale.z = order.displacement.magnitude;
         anchor.transform.localScale = scale;
-        Debug.Log("Order display anchor is: ", anchor);
+    }
+
+    public void TurnOff()
+    {
+        anchor.SetActive(false);
     }
 }

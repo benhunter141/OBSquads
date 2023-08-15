@@ -12,4 +12,7 @@ public class UnitData : ScriptableObject
     public float timeTilHit;
     public float attackPeriod;
     public Sprite icon;
+
+    public float lowVelocityThreshold;
+    public float lowVelocityStopTime;
 }

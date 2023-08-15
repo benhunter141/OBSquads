@@ -18,4 +18,11 @@ public class Order
     {
         unit.orderDisplay.Display(this);
     }
+
+    public void ExecuteOrder()
+    {
+        unit.refHolder.rb.AddForce(displacement * unit.data.moveForce, ForceMode.Impulse);
+        unit.orderDisplay.TurnOff();
+        unit.order = null;
+    }
 }
